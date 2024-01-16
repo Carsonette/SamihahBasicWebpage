@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Assignment5.css">
+    <title>Your Webpage Title</title>
+</head>
+<body>
+
+<header>
+    <h1>Samihah's Webpage</h1>
+</header>
+
+<nav>
+    <div class="menu-item">
+        <a href="#">Course</a>
+        <ul class="submenu">
+            <li><a href="https://www.w3schools.com">w3schools.com</a></li>
+            <li><a href="https://www.geeksforgeeks.org/web-development/">GeeksforGeeks - Web Development</a></li>
+            <li><a href="https://www.w3schools.com/howto/default.asp">W3Schools How To</a></li>
+            <li><a href="https://www.w3schools.com">Kurose and Ross</a></li>
+        </ul>
+    </div>
+    <div class="menu-item">
+        <a href="#">Browser(Double click selection)</a>
+        <ul class="submenu">
+            <li><a id="navigator" href="#">Navigator</a></li>
+            <li><a id="window" href="#">Window</a></li>
+            <li><a id="screen" href="#">Screen</a></li>
+            <li><a id="location" href="#">Location</a></li>
+            <li><a id="geolocation" href="#">Geolocation</a></li>
+        </ul>
+    </div>
+    <div class="menu-item">
+        <a href="#">About</a>
+        <ul class="submenu">
+            <li><a href="https://samihahtahsin1999.wixsite.com/samihahtahsin">Developer Description</a></li>
+            <li><a href="contactMe.html">Contact Me</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Container to display dynamic information -->
+<div id="dynamicInfoContainer"></div>
+
+<!-- Your webpage content goes here -->
+
+<script>
+    // Use a different name for the element variables
+    let navigatorLink = document.getElementById("navigator");
+    let windowLink = document.getElementById("window");
+    let screenLink = document.getElementById("screen");
+    let locationLink = document.getElementById("location");
+    let geolocationLink = document.getElementById("geolocation");
+
+    // Containers to display dynamic information
+    let dynamicInfoContainer = document.getElementById("dynamicInfoContainer");
+
+    // Event listener for click on "Navigator" link
+    navigatorLink.addEventListener("click", function () {
+        displayDynamicInfo("Navigator", {
+            "Browser Name": window.navigator.appName,
+            "Browser Version": window.navigator.appVersion,
+            "Browser Language": window.navigator.language,
+            "Platform": window.navigator.platform,
+            "User-agent header": window.navigator.userAgent
+        });
+    });
+
+    // Event listener for click on "Window" link
+    windowLink.addEventListener("click", function () {
+        displayDynamicInfo("Window", {
+            "Inner Height": window.innerHeight,
+            "Inner Width": window.innerWidth
+        });
+    });
+
+    // Event listener for click on "Screen" link
+    screenLink.addEventListener("click", function () {
+        displayDynamicInfo("Screen", {
+            "Width": window.screen.width,
+            "Height": window.screen.height,
+            "Available Width": window.screen.availWidth,
+            "Available Height": window.screen.availHeight,
+            "Color Depth": window.screen.colorDepth,
+            "Pixel Depth": window.screen.pixelDepth
+        });
+    });
+
+    // Event listener for click on "Location" link
+    locationLink.addEventListener("click", function () {
+        displayDynamicInfo("Location", {
+            "Href": window.location.href,
+            "Hostname": window.location.hostname,
+            "Pathname": window.location.pathname,
+            "Protocol": window.location.protocol
+        });
+    });
+
+    // Event listener for click on "Geolocation" link
+    geolocationLink.addEventListener("click", function () {
+        // Check if geolocation is supported
+        if (navigator.geolocation) {
+            // Get geolocation information
+            navigator.geolocation.getCurrentPosition(function (position) {
+                displayDynamicInfo("Geolocation", {
+                    "Latitude": position.coords.latitude,
+                    "Longitude": position.coords.longitude
+                });
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    });
+
+    // Function to display dynamic information
+    function displayDynamicInfo(title, infoObject) {
+        // Toggle the visibility of the container
+        dynamicInfoContainer.style.display =
+            dynamicInfoContainer.style.display === "none" ? "block" : "none";
+
+        // Display information only if the container is visible
+        if (dynamicInfoContainer.style.display === "block") {
+            let dynamicText = "<h2>" + title + "</h2>";
+
+            // Generate HTML for the information
+            for (let key in infoObject) {
+                dynamicText += "<p>" + key + ": " + infoObject[key] + "</p>";
+            }
+
+            // Update the content of the container
+            dynamicInfoContainer.innerHTML = dynamicText;
+        }
+    }
+</script>
+
+</body>
+</html>
